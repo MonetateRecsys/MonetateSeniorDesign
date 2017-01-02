@@ -1,0 +1,25 @@
+---
+- name: get pip on the machine.
+  sudo: yes
+  easy_install: name=pip
+
+- name: install jypiter notebooks 
+  sudo: yes
+  pip:
+          name: jupyter
+
+# Install spark... maybe
+- name: Grab spark
+  get_url: url=http://www.trieuvan.com/apache/spark/spark-2.1.0/spark-2.1.0-bin-hadoop2.7.tgz dest=/tmp timeout=300 backup=yes
+
+- name: unzip spark
+  sudo: yes
+  unarchive: copy=no src=/tmp/spark-2.1.0-bin-hadoop2.7.tgz dest=/opt
+
+# Note this installs JRE7 which is out of date and we need a newer oneeee
+- name: install jre
+  sudo: yes
+  apt: name=default-jre
+
+- name: copy over profile with pyspark exports
+  copy: src=/vagrant/roles/common/files/spark_profile dest=/home/vagrant/.profile
