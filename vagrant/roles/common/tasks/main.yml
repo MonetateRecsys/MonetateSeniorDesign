@@ -3,10 +3,14 @@
   sudo: yes
   easy_install: name=pip
 
-- name: install jypiter notebooks 
+- name: install jypiter notebooks and numpy
   sudo: yes
   pip:
-          name: jupyter
+          name: "{{item}}"
+  with_items:
+    - jupyter
+    - numpy
+
 
 # Install spark... maybe
 - name: Grab spark (this may take a bit)
@@ -30,6 +34,7 @@
     - oracle-java8-installer
     - sqlite3
     - libsqlite3-dev
+    - htop
 
 - name: copy over profile with pyspark exports
   copy: src=/vagrant/roles/common/files/spark_profile dest=/home/vagrant/.profile

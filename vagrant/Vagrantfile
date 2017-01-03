@@ -8,9 +8,18 @@ Vagrant.configure("2") do |config|
   # Port forward notebooks port to host machine
   config.vm.network :forwarded_port, guest: 8675, host: 8675
 
-  # Provision using ansible
+  # Provision using ansible local
   config.vm.provision "ansible_local" do |ansible|
 		  ansible.verbose = "v"
 		  ansible.playbook = "devbox.yml"
   end
+  
+  config.vm.define :devbox do |t| end
+  
+  # Configure virtualbox to have 4gb ram and 4cpus
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 4096
+    vb.cpus = 4
+  end
+
 end
