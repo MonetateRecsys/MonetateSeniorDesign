@@ -1,6 +1,3 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 Vagrant.configure("2") do |config|
   # see the online documentation at https://docs.vagrantup.com.
 
@@ -9,7 +6,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "ubuntu/trusty64"
 
   # Port forward notebooks port to host machine
-  config.vm.network :forwarded_port, guest: 8888, host: 8675
+  config.vm.network :forwarded_port, guest: 8675, host: 8675
 
   # Provision using ansible
   config.vm.provision "ansible_local" do |ansible|
