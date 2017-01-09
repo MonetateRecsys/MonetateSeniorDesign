@@ -1,0 +1,4 @@
+---
+- hosts: devbox
+  roles:
+    - common
