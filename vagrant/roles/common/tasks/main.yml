@@ -1,4 +1,8 @@
 ---
+- name: Install python
+  sudo: yes
+  apt: name=python-dev
+
 - name: get pip on the machine.
   sudo: yes
   easy_install: name=pip
