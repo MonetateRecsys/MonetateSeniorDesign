@@ -5,8 +5,9 @@ def new_action(prod1,prod2, action, conn):
 
 def get_recommendations(product, limit, conn):
     c = conn.cursor()
-    c.execute('''SELECT * FROM  INTO actions (productId1, productId2, action) VALUES (?,?,?)''', (prod1, prod2, action))
-
+    c.execute('''SELECT p.*, (select count(*) from actions where actions.productId1= ? and  actions.productId2 = p.id) as score from products p order by score desc limit ?''', (product, limit))
+    y=c.fetchall()
+    return y
 
 
 

@@ -42,6 +42,6 @@ def fake_interactions(num, data, conn):
         else:
             action = 'BUY'
 
-        prods = random.sample(range(1, 100), 2)
+        prods = random.sample(range(0, 99), 2)
         recommendation.new_action(data['products'][prods[0]]['sku'],data['products'][prods[1]]['sku'],action,conn)
-        recommendation.new_action(data['products'][prods[1]]['sku'], data['products'][prods[2]]['sku'], action, conn)
+        recommendation.new_action(data['products'][prods[1]]['sku'], data['products'][prods[0]]['sku'], action, conn)
