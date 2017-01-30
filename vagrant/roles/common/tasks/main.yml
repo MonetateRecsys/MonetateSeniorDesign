@@ -1,29 +1,4 @@
 ---
-- name: Install python
-  sudo: yes
-  apt: name=python-dev
-
-- name: get pip on the machine.
-  sudo: yes
-  easy_install: name=pip
-
-- name: install jypiter notebooks and numpy
-  sudo: yes
-  pip:
-          name: "{{item}}"
-  with_items:
-    - jupyter
-    - numpy
-
-
-# Install spark... maybe
-- name: Grab spark (this may take a bit)
-  get_url: url=http://www.trieuvan.com/apache/spark/spark-2.1.0/spark-2.1.0-bin-hadoop2.7.tgz dest=/tmp timeout=300 backup=yes
-
-- name: unzip spark
-  sudo: yes
-  unarchive: copy=no src=/tmp/spark-2.1.0-bin-hadoop2.7.tgz dest=/opt
-
 - name: Grab repo for java install
   sudo: yes
   apt_repository: repo=ppa:webupd8team/java update_cache=yes
@@ -39,6 +14,32 @@
     - sqlite3
     - libsqlite3-dev
     - htop
+    - python-dev
+
+- name: get pip on the machine.
+  sudo: yes
+  easy_install: name=pip
+
+- name: update setuptools
+  sudo: yes
+  shell: pip install --upgrade setuptools
+
+- name: install jypiter notebooks and numpy
+  sudo: yes
+  pip:
+          name: "{{item}}"
+  with_items:
+    - setuptools
+    - jupyter
+    - numpy
+
+# Install spark... maybe
+- name: Grab spark (this may take a bit)
+  get_url: url=http://www.trieuvan.com/apache/spark/spark-2.1.0/spark-2.1.0-bin-hadoop2.7.tgz dest=/tmp timeout=300 backup=yes
+
+- name: unzip spark
+  sudo: yes
+  unarchive: copy=no src=/tmp/spark-2.1.0-bin-hadoop2.7.tgz dest=/opt
 
 - name: copy over profile with pyspark exports
   copy: src=/vagrant/roles/common/files/spark_profile dest=/home/vagrant/.profile
