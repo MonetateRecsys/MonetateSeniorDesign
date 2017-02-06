@@ -32,6 +32,9 @@
     - setuptools
     - jupyter
     - numpy
+    - flask
+    - cherrypy
+    - paste
 
 # Install spark... maybe
 - name: Grab spark (this may take a bit)
