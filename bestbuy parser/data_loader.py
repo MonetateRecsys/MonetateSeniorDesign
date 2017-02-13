@@ -5,11 +5,11 @@ from random import randint
 def init_database(conn):
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS catalogs
-                 (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)''')
+                 (id INTEGER PRIMARY KEY AUTOINCREMENT, catalog_name TEXT)''')
     c.execute('''CREATE TABLE IF NOT EXISTS products
-             (id INTEGER PRIMARY KEY AUTOINCREMENT, sku_id INTEGER, catalog_id INTEGER,  name TEXT, price FLOAT, description TEXT)''')
+             (id INTEGER PRIMARY KEY AUTOINCREMENT, sku_id INTEGER, catalog_id INTEGER,  product_name TEXT, price FLOAT, description TEXT)''')
     c.execute('''CREATE TABLE IF NOT EXISTS users
-                 (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT)''')
+                 (id INTEGER PRIMARY KEY AUTOINCREMENT, user_name TEXT)''')
     c.execute('''CREATE TABLE IF NOT EXISTS products_bought
                  (id INTEGER PRIMARY KEY AUTOINCREMENT,user_id INTEGER,product_id INTEGER)''')
 
@@ -24,36 +24,36 @@ def load_fake_data(conn):
     c.execute('''DELETE FROM products_bought''')
 
     catalogs = []
-    c.execute('''INSERT INTO catalogs (name) VALUES (?)''',('BestBuy',))
+    c.execute('''INSERT INTO catalogs (catalog_name) VALUES (?)''',('BestBuy',))
     catalogs.append(c.lastrowid)
-    c.execute('''INSERT INTO catalogs (name) VALUES (?)''',('RiteAid',))
+    c.execute('''INSERT INTO catalogs (catalog_name) VALUES (?)''',('RiteAid',))
     catalogs.append(c.lastrowid)
 
 
     ppl = []
-    c.execute('''INSERT INTO users (name) VALUES (?)''',('Tomer',))
+    c.execute('''INSERT INTO users (user_name) VALUES (?)''',('Tomer',))
     ppl.append(c.lastrowid)
-    c.execute('''INSERT INTO users (name) VALUES (?)''',('Alex',))
+    c.execute('''INSERT INTO users (user_name) VALUES (?)''',('Alex',))
     ppl.append(c.lastrowid)
-    c.execute('''INSERT INTO users (name) VALUES (?)''',('Matt',))
+    c.execute('''INSERT INTO users (user_name) VALUES (?)''',('Matt',))
     ppl.append(c.lastrowid)
-    c.execute('''INSERT INTO users (name) VALUES (?)''',('Rachael',))
+    c.execute('''INSERT INTO users (user_name) VALUES (?)''',('Rachael',))
     ppl.append(c.lastrowid)
-    c.execute('''INSERT INTO users (name) VALUES (?)''',('Joey',))
+    c.execute('''INSERT INTO users (user_name) VALUES (?)''',('Joey',))
     ppl.append(c.lastrowid)
 
     products = []
-    c.execute('''INSERT INTO products (id,sku_id,catalog_id, name, price,description) VALUES (NULL,?,?,?,?,?)''',(100,catalogs[randint(0,len(catalogs)-1)],'Movie1',51007,'Red and swollen'))
+    c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(100,catalogs[randint(0,len(catalogs)-1)],'Movie1',51007,'Red and swollen'))
     products.append(c.lastrowid)
-    c.execute('''INSERT INTO products (id,sku_id,catalog_id, name, price,description) VALUES (NULL,?,?,?,?,?)''',(200,catalogs[randint(0,len(catalogs)-1)],'Movie2',1337,'Bachelor trying to have it all'))
+    c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(200,catalogs[randint(0,len(catalogs)-1)],'Movie2',1337,'Bachelor trying to have it all'))
     products.append(c.lastrowid)
-    c.execute('''INSERT INTO products (id,sku_id,catalog_id, name, price,description) VALUES (NULL,?,?,?,?,?)''',(300,catalogs[randint(0,len(catalogs)-1)],'Movie3',69.69,'Mid range model'))
+    c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(300,catalogs[randint(0,len(catalogs)-1)],'Movie3',69.69,'Mid range model'))
     products.append(c.lastrowid)
-    c.execute('''INSERT INTO products (id,sku_id,catalog_id, name, price,description) VALUES (NULL,?,?,?,?,?)''',(400,catalogs[randint(0,len(catalogs)-1)],'Movie4',234,'Absent'))
+    c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(400,catalogs[randint(0,len(catalogs)-1)],'Movie4',234,'Absent'))
     products.append(c.lastrowid)
-    c.execute('''INSERT INTO products (id,sku_id,catalog_id, name, price,description) VALUES (NULL,?,?,?,?,?)''',(500,catalogs[randint(0,len(catalogs)-1)],'Movie5',876,'Yall'))
+    c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(500,catalogs[randint(0,len(catalogs)-1)],'Movie5',876,'Yall'))
     products.append(c.lastrowid)
-    c.execute('''INSERT INTO products (id,sku_id,catalog_id, name, price,description) VALUES (NULL,?,?,?,?,?)''',(600,catalogs[randint(0,len(catalogs)-1)],'Movie6',45.56,'Handicapable'))
+    c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(600,catalogs[randint(0,len(catalogs)-1)],'Movie6',45.56,'Handicapable'))
     products.append(c.lastrowid)
 
     for i in range(1,100):
@@ -87,10 +87,3 @@ def get_data_for_catalog(conn,catalogid):
 
 def get_connection():
     return sqlite3.connect('recommendation_engine.db')
-
-conn = get_connection()
-init_database(conn)
-load_fake_data(conn)
-get_users(conn)
-conn.commit()
-conn.close()
