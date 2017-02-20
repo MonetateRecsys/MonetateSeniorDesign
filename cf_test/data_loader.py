@@ -65,6 +65,16 @@ def get_users(conn):
     c.execute('''select * from users''')
     return c.fetchall()
 
+def get_products(conn):
+    c = conn.cursor()
+    c.execute('''select * from products''')
+    return c.fetchall()
+
+def get_products_bought(conn):
+    c = conn.cursor()
+    c.execute('''select * from products_bought''')
+    return c.fetchall()
+
 def get_all_data(conn):
     c = conn.cursor()
     c.execute('''select u.*, p.*, c.* from users u, products p, products_bought pb, catalogs c where p.id = pb.product_id and p.catalog_id == c.id and u.id = pb.user_id''')
@@ -84,6 +94,7 @@ def get_data_for_catalog(conn,catalogid):
     c = conn.cursor()
     c.execute('''select u.*, p.*, c.* from users u, products p, products_bought pb, catalogs c where p.id = pb.product_id and p.catalog_id == c.id and u.id = pb.user_id and c.id = ?''',(catalogid,))
     return c.fetchall()
+
 
 def get_connection():
     return sqlite3.connect('recommendation_engine.db')

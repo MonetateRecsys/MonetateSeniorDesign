@@ -1,5 +1,6 @@
 import pandas as pd
 from scipy.spatial.distance import cosine
+from data_converter import get_data
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DATA LOADING ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
 data = pd.read_csv('test_data.csv')
@@ -11,6 +12,7 @@ data_raw = data.drop('user',1)
 print('Raw Data')
 print(data)
 print()
+print(pd.DataFrame(get_data()))
 
 
 '''~~~~~~~~~~~~~~~~~~~~~ ITEM BASED COLLABORATIVE FILTERING ~~~~~~~~~~~~~~~~~~~~'''
