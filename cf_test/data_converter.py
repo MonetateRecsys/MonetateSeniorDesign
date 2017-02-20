@@ -19,15 +19,15 @@ def get_data():
 	user_ids = [trans[1] for trans in users_with_products]
 	product_ids = [trans[2] for trans in users_with_products]
 
-	product_offset =max(product_ids) - min(product_ids)
-	user_offset = max(product_ids) - min(user_ids)
+	product_offset =max(product_ids) - min(product_ids)+1
+	user_offset = max(user_ids) - min(user_ids)+1
 
 	print(product_offset)
 	print(user_offset)
 	print(data_loader.get_products(conn))
 	print(product_ids)
 
-	matrix = [[0 for x in range(user_offset)] for y in range(product_offset)]
+	matrix = [[0 for x in range(product_offset)] for y in range(user_offset)]
 	for trans in users_with_products:
 		matrix[trans[1]-min(user_ids)][trans[2]-min(product_ids)] = 1
 
