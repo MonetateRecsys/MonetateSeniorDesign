@@ -56,7 +56,7 @@ def load_fake_data(conn):
     c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(600,catalogs[randint(0,len(catalogs)-1)],'Movie6',45.56,'Handicapable'))
     products.append(c.lastrowid)
 
-    for i in range(1,100):
+    for i in range(1,25):
         c.execute('''INSERT INTO products_bought (id,user_id, product_id) VALUES (NULL,?,?)''',(ppl[randint(0,len(ppl)-1)],products[randint(0,len(products)-1)]))
 
 
