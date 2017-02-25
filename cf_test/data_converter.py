@@ -11,8 +11,10 @@ def get_data():
 	#print(data_loader.get_all_data(conn))
 
 	#print(pd.DataFrame(data_loader.get_all_data(conn)))
-	#users = data_loader.get_users(conn)
-	#products = data_loader.get_products(conn)
+	users = data_loader.get_users(conn)
+	products = data_loader.get_products(conn)
+	user_names = [user[0] for user in users]
+	product_names = [product[3] for product in products]
 
 	users_with_products = data_loader.get_products_bought(conn)
 
@@ -22,10 +24,10 @@ def get_data():
 	product_offset =max(product_ids) - min(product_ids)+1
 	user_offset = max(user_ids) - min(user_ids)+1
 
-	print(product_offset)
-	print(user_offset)
-	print(data_loader.get_products(conn))
-	print(product_ids)
+	#print(product_offset)
+	#print(user_offset)
+	#print(data_loader.get_products(conn))
+	#print(product_ids)
 
 	matrix = [[0 for x in range(product_offset)] for y in range(user_offset)]
 	for trans in users_with_products:
@@ -34,4 +36,4 @@ def get_data():
 	conn.commit()
 	conn.close()
 
-	return matrix
+	return [user_names, product_names, matrix]

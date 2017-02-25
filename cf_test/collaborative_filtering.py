@@ -3,16 +3,20 @@ from scipy.spatial.distance import cosine
 from data_converter import get_data
 
 '''~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ DATA LOADING ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'''
-data = pd.read_csv('test_data.csv')
+[user_ids, product_names, data_raw] = get_data()
+data = pd.DataFrame(data_raw)
+data.columns = product_names
+data.insert(0,'user',user_ids)
+
+#data = pd.read_csv('test_data.csv')
 #print(data.head(6).ix[:,2:8])
 
 # Drop user column
 data_raw = data.drop('user',1)
-#data_raw = pd.DataFrame(get_data())
 print('Raw Data')
 print(data)
 print()
-print(pd.DataFrame(get_data()))
+
 
 
 '''~~~~~~~~~~~~~~~~~~~~~ ITEM BASED COLLABORATIVE FILTERING ~~~~~~~~~~~~~~~~~~~~'''
@@ -27,13 +31,10 @@ for i in range(0,len(data_ibs.columns)):
 # Create a placeholder dataframe for closest neighbours to an item
 num_cols = len(data_ibs.columns)
 data_neighbours = pd.DataFrame(index=data_ibs.columns,columns=range(1,num_cols + 1))
-#print(data_neighbours)
 
 # Loop through similarity dataframe and fill in neighbouring item names
 for i in range(0,len(data_ibs.columns)):
 	data_neighbours.ix[i,:num_cols] = data_ibs.ix[0:,i].sort_values(ascending=False)[:num_cols].index
-	print(data_neighbours.ix[i,:num_cols])
-print(data_neighbours)
 
 print('Item Based Collaborative Filtering')
 print(data_neighbours);
