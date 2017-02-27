@@ -43,18 +43,22 @@ def load_fake_data(conn):
     ppl.append(c.lastrowid)
 
     products = []
-    c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(100,catalogs[randint(0,len(catalogs)-1)],'Movie1',51007,'Red and swollen'))
-    products.append(c.lastrowid)
-    c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(200,catalogs[randint(0,len(catalogs)-1)],'Movie2',1337,'Bachelor trying to have it all'))
-    products.append(c.lastrowid)
-    c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(300,catalogs[randint(0,len(catalogs)-1)],'Movie3',69.69,'Mid range model'))
-    products.append(c.lastrowid)
-    c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(400,catalogs[randint(0,len(catalogs)-1)],'Movie4',234,'Absent'))
-    products.append(c.lastrowid)
-    c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(500,catalogs[randint(0,len(catalogs)-1)],'Movie5',876,'Yall'))
-    products.append(c.lastrowid)
-    c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(600,catalogs[randint(0,len(catalogs)-1)],'Movie6',45.56,'Handicapable'))
-    products.append(c.lastrowid)
+    # c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(100,catalogs[randint(0,len(catalogs)-1)],'Movie1',51007,'Red and swollen'))
+    # products.append(c.lastrowid)
+    # c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(200,catalogs[randint(0,len(catalogs)-1)],'Movie2',1337,'Bachelor trying to have it all'))
+    # products.append(c.lastrowid)
+    # c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(300,catalogs[randint(0,len(catalogs)-1)],'Movie3',69.69,'Mid range model'))
+    # products.append(c.lastrowid)
+    # c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(400,catalogs[randint(0,len(catalogs)-1)],'Movie4',234,'Absent'))
+    # products.append(c.lastrowid)
+    # c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(500,catalogs[randint(0,len(catalogs)-1)],'Movie5',876,'Yall'))
+    # products.append(c.lastrowid)
+    # c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(600,catalogs[randint(0,len(catalogs)-1)],'Movie6',45.56,'Handicapable'))
+    # products.append(c.lastrowid)
+
+    for i in range(1,100):
+        c.execute('''INSERT INTO products (id,sku_id,catalog_id, product_name, price,description) VALUES (NULL,?,?,?,?,?)''',(randint(1,2000),catalogs[randint(0,len(catalogs)-1)],'Movie' + str(i),randint(1,2000),'Title' + str(i)))
+        products.append(c.lastrowid)
 
     for i in range(1,25):
         c.execute('''INSERT INTO products_bought (id,user_id, product_id) VALUES (NULL,?,?)''',(ppl[randint(0,len(ppl)-1)],products[randint(0,len(products)-1)]))
