@@ -65,14 +65,19 @@ def get_users(conn):
     c.execute('''select * from users''')
     return c.fetchall()
 
-def get_products(conn):
+def get_catalogs(conn):
     c = conn.cursor()
-    c.execute('''select * from products''')
+    c.execute('''select * from catalogs''')
     return c.fetchall()
 
-def get_products_bought(conn):
+def get_products(conn, catalog_id):
     c = conn.cursor()
-    c.execute('''select * from products_bought''')
+    c.execute('''select * from products where catalog_id = ?''',(catalog_id))
+    return c.fetchall()
+
+def get_products_bought(conn, catalog_id):
+    c = conn.cursor()
+    c.execute('''select pb.* from products_bought pb, catalogs cat, products p where pb.product_id = p.id and p.catalog_id = ?''',(catalog_id))
     return c.fetchall()
 
 def get_all_data(conn):
