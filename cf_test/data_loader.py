@@ -72,7 +72,7 @@ def get_catalogs(conn):
 
 def get_products(conn, catalog_id):
     c = conn.cursor()
-    c.execute('''select * from products where catalog_id = ?''',(catalog_id))
+    c.execute('''select * from products where catalog_id = ?''',(catalog_id,))
     return c.fetchall()
 
 def get_products_bought(conn, catalog_id):
