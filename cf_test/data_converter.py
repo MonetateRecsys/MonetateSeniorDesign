@@ -3,8 +3,8 @@ import data_loader
 
 def get_data():
     conn = data_loader.get_connection()
-    #data_loader.init_database(conn)
-    #data_loader.load_fake_data(conn)
+    data_loader.init_database(conn)
+    data_loader.load_fake_data(conn)
 
     catalogs = data_loader.get_catalogs(conn)
     catalog_id = catalogs[0][0]
@@ -39,7 +39,6 @@ def get_data():
             maxProduct += 1
 
         matrix[user_index][prod_index] = 1
-
 
     conn.commit()
     conn.close()
