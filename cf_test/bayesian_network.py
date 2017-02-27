@@ -8,12 +8,12 @@ def infer_hidden_node(E, I, theta, sample_hidden):
 	theta_T, theta_E = theta
 
 	# Calculate unnormalized probability associated with hidden node being 0
-	theta_E_wide = asarray(ones([E.shape[0],1) * asmatrix(theta_E[:,0])) 
+	theta_E_wide = asarray(ones([E.shape[0],1]) * asmatrix(theta_E[:,0])) 
 	p_vis_0 = I * (theta_E_wide * E + (1-theta_E_wide) * (1-E)) + (I==0)*1	
 	prob_0_unnorm = (1-theta_T) * prod(p_vis_0, 1)
 
 	# Calculate unnormalized probability associated with hidden node being 1
-	theta_E_wide = asarray(ones([E.shape[0],1) * asmatrix(theta_E[:,1]))
+	theta_E_wide = asarray(ones([E.shape[0],1]) * asmatrix(theta_E[:,1]))
 	p_vis_1 = I * (theta_E_wide * E + (1-theta_E_wide) * (1-E)) + (I==0)*1	
 	prob_1_unnorm = theta_T * prod(p_vis_1, 1)
 
@@ -49,7 +49,7 @@ def compute_theta(T, E):
 
 	return [theta_T, theta_E]
 
-def print_theta(theta)
+def print_theta(theta):
 	theta_T, theta_E = theta
 	
 	print("T\t0: %f\t1:%f" % (1-theta_T, theta_T))
