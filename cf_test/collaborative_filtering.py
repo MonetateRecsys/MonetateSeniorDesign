@@ -75,6 +75,8 @@ def user_collab_filter():
 				user_purchases = data_raw.ix[user,product_top_names]
 
 				data_sims.ix[i][j] = get_score(user_purchases,product_top_sims)
+	
+	print('here')
 
 	# Get top products
 	data_recommend = pd.DataFrame(index=data_sims.index,columns=['user','1','2','3','4','5','6'])
