@@ -8,7 +8,7 @@ def infer_hidden_node(E, I, theta, sample_hidden):
 	theta_T, theta_E = theta
 
 	# Calculate unnormalized probability associated with hidden node being 0
-	theta_E_wide = asarray(ones([E.shape[0],1) * asmatrix(theta_E[:,0]))
+	theta_E_wide = asarray(ones([E.shape[0],1) * asmatrix(theta_E[:,0])) 
 	p_vis_0 = I * (theta_E_wide * E + (1-theta_E_wide) * (1-E)) + (I==0)*1	
 	prob_0_unnorm = (1-theta_T) * prod(p_vis_0, 1)
 
@@ -76,4 +76,17 @@ def learn(T, E, max_iter, sample_hidden):
 	return theta
 
 def simulate():
-	return 0
+	E = loadtxt('bnet.csv', dtype=int, delimiter=',', skiprows=1)
+	T = randint(2, size=E.shape[0])
+
+	theta_learned = learn(T, E, 200, sample_hidden=True)
+
+	print('Starting State:')
+	print_theta(compute_theta(T, E))
+	print('Ending State:')
+	print_theta(theta_learned)
+
+	pickle.dump([theta_learned[0], theta_learned[1].tolist()], open('theta.pickle', 'wb'))
+
+if __name__ == '__main__':
+	simulate()
