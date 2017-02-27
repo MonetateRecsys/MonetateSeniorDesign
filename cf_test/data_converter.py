@@ -11,12 +11,15 @@ def get_data():
 	#print(data_loader.get_all_data(conn))
 
 	#print(pd.DataFrame(data_loader.get_all_data(conn)))
+	catalogs = data_loader.get_catalogs(conn)
+	print(catalogs)
+	catalog_id = catalogs[0][0]
 	users = data_loader.get_users(conn)
-	products = data_loader.get_products(conn)
+	products = data_loader.get_products(conn, catalog_id)
 	user_names = [user[0] for user in users]
 	product_names = [product[3] for product in products]
 
-	users_with_products = data_loader.get_products_bought(conn)
+	users_with_products = data_loader.get_products_bought(conn, catalog_id)
 
 	user_ids = [trans[1] for trans in users_with_products]
 	product_ids = [trans[2] for trans in users_with_products]
