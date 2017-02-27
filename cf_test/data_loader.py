@@ -99,7 +99,7 @@ def get_data_for_user_and_catalog(conn,userid,catalogid):
     c.execute('''select u.*, p.*, c.* from users u, products p, products_bought pb, catalogs c where p.id = pb.product_id and p.catalog_id == c.id and u.id = pb.user_id and u.id = ? and c.id = ?''',(userid,catalogid))
     return c.fetchall()
 
-def get_data_for_catalog(conn,catalogid):
+def get_transactions_for_catalog(conn,catalogid):
     c = conn.cursor()
     c.execute('''select u.*, p.*, c.* from users u, products p, products_bought pb, catalogs c where p.id = pb.product_id and p.catalog_id == c.id and u.id = pb.user_id and c.id = ?''',(catalogid,))
     return c.fetchall()
