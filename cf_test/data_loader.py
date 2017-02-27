@@ -77,7 +77,7 @@ def get_products(conn, catalog_id):
 
 def get_products_bought(conn, catalog_id):
     c = conn.cursor()
-    c.execute('''select pb.* from products_bought pb, catalogs cat, products p where pb.product_id = p.id and p.catalog_id = ?''',(catalog_id))
+    c.execute('''select pb.* from products_bought pb, catalogs cat, products p where pb.product_id = p.id and p.catalog_id = ?''',(catalog_id,))
     return c.fetchall()
 
 def get_all_data(conn):
