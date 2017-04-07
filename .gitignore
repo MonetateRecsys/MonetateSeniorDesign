@@ -1,7 +1,11 @@
 *movie_lens_als*
 *metastore_db*
 *datasets*
+*.pyc
 .idea/*
 vagrant/.vagrant*
 vagrant/devbox.retry
 vagrant/Jupyter Notebooks/msd88/datasets*
+prod/.idea/*
+
+
